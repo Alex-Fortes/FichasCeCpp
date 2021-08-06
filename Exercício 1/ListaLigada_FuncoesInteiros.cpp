@@ -24,7 +24,7 @@ using namespace std;
 	typedef struct node {
 		int val;
 		struct node*next;
-	}; node_list;  // novo tipo de dados
+	} node_list;  // novo tipo de dados
 	
 // Funções de estrutura ligada - "Linked list"
 // Lista de funções
@@ -35,10 +35,10 @@ using namespace std;
 	void pushfirst(node_list**,int);
 	// função pushfirst() -> insere o primeiro elemento da lista ligada
 	
-	void push (node list* * , int)
+	void push (node_list**, int);
 	// função push() -> Insere um elemento no fim da lista ligada
 		 
-	int add_by_index(node_list**, int, int)
+	int add_by_index(node_list**, int, int);
 	// função add_by_index() -> Insere um elemento numa determinada  posição de uma lista ligada 
 	
 	void print_list(node_list*);
@@ -57,7 +57,7 @@ using namespace std;
 	int update_by_index(node_list*, int , int);
 	// função  update_by_index() -> Atualiza um elemento através da posição da lista ligada.
 	
-	int update_by_value(node_list*, int, int)
+	int update_by_value(node_list*, int, int);
 	// função update_by_value() -> Atualiza um elemento de uma lista ligada pelo valor guardado.
 	// Atualiza todas as ocorréncias.
 	
@@ -95,13 +95,14 @@ using namespace std;
 	else
 	{
 	int numE=0; aux = head; 
-	while (aux . = NULL){
-		numE ++ ; aux = aux->next; 
+	while (aux != NULL){
+		numE ++; aux = aux->next; 
 	}
 	return numE;
 } // Fim do else.
 } // Fim da função size()
 	 
+	 // função pushfirst()
 	void pushfirst (node_list ** head, int val) {
 	
 		node_list * new_node; 
@@ -112,6 +113,7 @@ using namespace std;
 		*head = new_node; 
 	}// Fim da função
 	
+	//função push()
 	void push(node_list ** head, int val) {
 	// Dados 
 	node_list * current = *head;
@@ -158,7 +160,7 @@ using namespace std;
 	}
 	else
 	if(n == 0){
-		pushtirst(head, val);
+		pushfirst(head, val);
 		cout<<"Elemento inserido na primeira posição."<<endl;
 		return val;
 	}
@@ -208,7 +210,7 @@ using namespace std;
 	
 	if(size(head) == 0)
 	{
-		cout<<"Lista vazia.\n"
+		cout<<"Lista vazia."<<endl;
 	}
 	else{
 		while(current != NULL){
@@ -216,7 +218,8 @@ using namespace std;
 			current = current->next;
 		}
 		cout<<endl;
-	}//fim da função
+	}
+}//fim da função
 
 	// função sort_list()
 	
@@ -234,7 +237,7 @@ using namespace std;
 		{
 			before = head; 
 			houveTroca = false; 
-		for(int cElemento=0; cElemento<(size(head)-1); cEIemento++)
+		for(int cElemento=0; cElemento<(size(head)-1); cElemento++)
 		
 		{
 			if (cElemento>0 && before->next != NULL) 
@@ -242,14 +245,14 @@ using namespace std;
 				if (before->next != NULL) 
 				after = before->next;
 				
-			if (before->val > && asc)
+			if (before->val > after->val && asc)
 			{
 				houveTroca = true ;
 				temp = after->val;
 				after->val = before->val;
 				before->val = temp;
 		}
-	else if (before->val < after->val && != asc)
+	else if (before->val < after->val && !asc)
 	{
 		houveTroca = true;
 		temp = after->val;
@@ -257,8 +260,9 @@ using namespace std;
 		before->val = temp;
 	}
 	}
-	} while (houveTroca) 
-		print_list(head)
+	} while (houveTroca);
+		print_list(head);
+	}
 	else
 		cout<<"Lista de im só elemento ou lista vazia."<<endl;
 }// fim da função
@@ -276,7 +280,7 @@ using namespace std;
 		cout<<"Lista vazia!"<<endl;
 		return -1;
 	}
-	else if (n == 0)	
+	else if (n == 0){
 		cout<<current->val<<endl;
 		return current->val;
 	}
@@ -312,7 +316,7 @@ using namespace std;
 	else 
 	{
 		while(current != NULL)
-	}
+		{
 		if(current->val == val)
 			{
 				cout<<"Valor encontrado na posição: "<<pos<<"."<<endl;
@@ -344,7 +348,7 @@ using namespace std;
 		cout<<"Lista vazia!"<<endl;
 		return -1;
 	}
-	else if (n == 0)	
+	else if (n == 0){
 		current->val = newVal;
 		return n;
 	}
@@ -380,7 +384,7 @@ using namespace std;
 	else 
 	{
 		while(current != NULL)
-	}
+	{
 		if(current->val == val)
 			{
 				cout<<"Valor encontrado na posição: "<<pos<<"."<<endl;
@@ -403,10 +407,10 @@ using namespace std;
 	// função remove_last()
 	
 	int remove_last (node_list * head) { 
-	int retval = 0:
+	int retval = 0;
 		
 	/* if there is only one item in the list, remove it */
-	if (head->next NULL) {
+	if (head->next == NULL) {
 		retval = head->val;
 		free(head);
 		return retval;
@@ -427,7 +431,7 @@ using namespace std;
 	int pop(node_list ** head) {
 		
 	// Declaração de dados 
-	int retval = -1 				// Guarda o valor a devolver 
+	int retval = -1;				// Guarda o valor a devolver 
 	node_list * next_node = NULL;  // Ponteiro auxiliar
 	
 	if (*head == NULL){   // Se a Lista estiver 
@@ -436,9 +440,9 @@ using namespace std;
 	else {	
 		next_node = (*head)->next; 	// Define o novo primeiro elemento da lista 
 		retval = (*head)->val;		// Obtém o valor a ser retirado
-		free ( *head)				// Liberta a posição de memória ocupada pelo primeiro elemento
+		free ( *head);				// Liberta a posição de memória ocupada pelo primeiro elemento
 		*head = next_node;			// Define o novo inicio da lista 
-		return reeval; 				// Devolve o valor retirado
+		return retval; 				// Devolve o valor retirado
 	}
 }// Fim da função	 
 	
@@ -481,7 +485,7 @@ using namespace std;
 			while (current) {			// Enquanto não chegar ao fim da lista "current != NULL"
 			  	 
 		    if (current->val == val) { 
-			previous->next =current->next
+			previous->next =current->next;
 			free(current);
 			return val;
 		}
@@ -515,7 +519,7 @@ using namespace std;
 			while (current) {			// Enquanto não chegar ao fim da lista "current != NULL"
 			  	 
 		    if (current->val == val) { 
-			previous->next = current->next
+			previous->next = current->next;
 			free(current);
 		}
 		previous = current; 
