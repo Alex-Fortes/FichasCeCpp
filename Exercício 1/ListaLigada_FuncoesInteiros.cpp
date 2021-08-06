@@ -11,9 +11,9 @@
 // - Pesquisar um elemento numa determinada
 
 // Bibliotecas de C
-#include <cstudio>
-#include <cstdlib>
-#include <clocale>
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
 
 // Bibliotecas de C++
 #include <iostream>
