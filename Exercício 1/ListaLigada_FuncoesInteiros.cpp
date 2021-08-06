@@ -364,7 +364,188 @@ using namespace std;
 	}
 }//fim da função	 	 	 	 	 
 
+	// função update_by_value()	
+		int update_by_value(node_list *head, int val, int newVal) {
+	// 1. Dados 
+		int pos = 0;
+		int retval = -1;
+		bool encontrouValor = false;
+		node_list * current = head;
+		
+	// 2. Algoritmo 
+	if (current == NULL){
+		cout<<"Lista vazia!"<<endl;
+		return -1;
+	}
+	else 
+	{
+		while(current != NULL)
+	}
+		if(current->val == val)
+			{
+				cout<<"Valor encontrado na posição: "<<pos<<"."<<endl;
+				current->val = newVal;
+				encontrouValor = true;
+			}
+			current = current->next;
+			pos++;
+			}
+			if (encontrouValor)
+				return (pos-1);
+			else 
+			{
+				cout<<"Valor não encontrado na estrutura de dados."<<endl;
+				return -1;
+			}
+		}
+	}// fim da função
 	 
+	// função remove_last()
 	
+	int remove_last (node_list * head) { 
+	int retval = 0:
+		
+	/* if there is only one item in the list, remove it */
+	if (head->next NULL) {
+		retval = head->val;
+		free(head);
+		return retval;
+	}
+	/* get to the second to last node in the list */
+	node_list * current = head; 
+	while (current->next->next != NULL) {
+	 current = current->next;
+}
+	/* now current points to the second to last item of the list, so let's remove current->next */
+	retval = current->next->val;
+	free(current->next);
+	current->next = NULL;
+	return retval;
+}//fim da função
 
+	// função pop()
+	int pop(node_list ** head) {
+		
+	// Declaração de dados 
+	int retval = -1 				// Guarda o valor a devolver 
+	node_list * next_node = NULL;  // Ponteiro auxiliar
+	
+	if (*head == NULL){   // Se a Lista estiver 
+	return -1; 			// vazia
+	}
+	else {	
+		next_node = (*head)->next; 	// Define o novo primeiro elemento da lista 
+		retval = (*head)->val;		// Obtém o valor a ser retirado
+		free ( *head)				// Liberta a posição de memória ocupada pelo primeiro elemento
+		*head = next_node;			// Define o novo inicio da lista 
+		return reeval; 				// Devolve o valor retirado
+	}
+}// Fim da função	 
+	
+	// função remove_by_index()	
+	 
+	int remove_by_index (node_list ** head, int n) {
+		
+		// Declaração de dados 
+		int i = 0;
+		int retval = -1; 
+		node_list * current = *head; 
+		node_list * temp_node = NULL;
+		
+		if(n == 0){
+			return pop(head);
+		}
+		for (i = 0; i < n-1;i++){
+			if(current->next == NULL){
+				return -1;
+			}
+			current = current->next;
+		}
+	}// fum da função
+
+		// função remove_by_value()	
+	 
+	int remove_by_value(node_list ** head, int val) {
+		
+		// Declaração de dados 
+		node_list *previous, *current; // dois ponteiros. um aponta para a posição anterior
+									   // e outro para a posição corrente.
+	if(*head == NULL) {			// Se a Lista estiver 
+	return -1;
+	}
+	else if((*head)->val == val) {    	// Se for o primeiro
+			return pop(head);  			// elemento
+		}
+		else {
+			previous = current = (*head)->next;
+			while (current) {			// Enquanto não chegar ao fim da lista "current != NULL"
+			  	 
+		    if (current->val == val) { 
+			previous->next =current->next
+			free(current);
+			return val;
+		}
+		previous = current; 
+		current = current->next;
+		}
+	}
+	return -1;
+}//fim da função
+
+
+		// função remove_by_valueAll()	
+	 
+	int remove_by_valueAll(node_list ** head, int val) {
+		
+		// Declaração de dados 
+		node_list *previous, *current; // dois ponteiros. um aponta para a posição anterior
+									   // e outro para a posição corrente.
+	
+		bool encontrouValor =  false;
+		
+	if(*head == NULL) {			// Se a Lista estiver 
+	return -1;
+	}
+	else if((*head)->val == val) {    	// Se for o primeiro
+			return pop(head);  			// elemento
+		}
+		else {
+			previous = *head;
+			current = (*head)->next;
+			while (current) {			// Enquanto não chegar ao fim da lista "current != NULL"
+			  	 
+		    if (current->val == val) { 
+			previous->next = current->next
+			free(current);
+		}
+		previous = current; 
+		current = current->next;
+		}
+		return val;
+	}
+	return -1;
+}//fim da função
+
+	// função delete_list()
+	
+	void delete_list(node_list **head){
+		
+		// delcaração de dados
+	node_list *current = *head, 
+		// Ponteiro que aponta para o elemento a ser eliminado.
+		// É inicializado para a cabeça da lista.
+	*next = *head; 
+		// Ponteiro que aponta para o próximo elemento.
+		// É inicializado para a cabeça da lista.
+		
+	while (current != NULL) {	// Enquanto não chegar ao fim da lista "current != NULL"
+	next  = current->next;  // O ponteiro 'next' aponta para o próximo elemento.
+	free(current); // Elimina o elemento corrente.
+	current = next;	// O ponteiro corrente passa a apontar para o novo primeiro da lista.
+	}
+	*head = NULL;
+}	// Fim da função .
+
+
+	
 	
