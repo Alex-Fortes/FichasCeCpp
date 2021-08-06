@@ -194,19 +194,175 @@ using namespace std;
 }
 } // fim da função
  
-// * Fungäo "print List ( ) "
-	// * 	Apresenta os elementos de uma lista ligada
-( linked list")
+// função print_List()
  
-// * Entrada (s) .
-node list * head - > ponteiro para o inicio da lista
-ligada .
-// * Saida (s) : näo tem.
+// Entrada:
+	//	node_list * head -> ponteiro para o inicio da lista ligada
+	//  Saida (s): não tem.
  
-void print list (node list  *  head) { // Declaraqäo de um ponteiro
-/ / que vai percorrendo a 1 is ta node list * current = NULL ; curren t=head ;
+	void print_list(node_list * head) {
+	// Declaração de um ponteiro
+	// que vai percorrendo a lista
+	node_list * current = NULL; 
+	current=head;
+	
+	if(size(head) == 0)
+	{
+		cout<<"Lista vazia.\n"
+	}
+	else{
+		while(current != NULL){
+			printf("%d",current->val);
+			current = current->next;
+		}
+		cout<<endl;
+	}//fim da função
 
+	// função sort_list()
+	
+	void sort_list(node_list * head,bool asc){
+		
+	// Declaração de um ponteiro que vai percorrendo a lista
+	
+	node_list * before = head; 
+	node_list * after = NULL; 
+	int temp = 0;
+	bool houveTroca = false;
+	
+	if (size (head) >=2){
+		do
+		{
+			before = head; 
+			houveTroca = false; 
+		for(int cElemento=0; cElemento<(size(head)-1); cEIemento++)
+		
+		{
+			if (cElemento>0 && before->next != NULL) 
+			before = before->next; 
+				if (before->next != NULL) 
+				after = before->next;
+				
+			if (before->val > && asc)
+			{
+				houveTroca = true ;
+				temp = after->val;
+				after->val = before->val;
+				before->val = temp;
+		}
+	else if (before->val < after->val && != asc)
+	{
+		houveTroca = true;
+		temp = after->val;
+		after->val = before->val;
+		before->val = temp;
+	}
+	}
+	} while (houveTroca) 
+		print_list(head)
+	else
+		cout<<"Lista de im só elemento ou lista vazia."<<endl;
+}// fim da função
 
+	// função search_by_index()	
+	
+	int search_by_index(node_list *head, int n) {
+	// 1. Dados 
+		int i = 0;
+		int retval = -1;
+		node_list * current = head;
+		
+	// 2. Algoritmo 
+	if (current == NULL){
+		cout<<"Lista vazia!"<<endl;
+		return -1;
+	}
+	else if (n == 0)	
+		cout<<current->val<<endl;
+		return current->val;
+	}
+	else if (n > size(head))
+	{
+		cout<<"Posições começam de 0."<<endl;
+			cout<<"Estrutura só tem "<<size(head)<<" elementos."<<endl;
+		return -1;
+	}
+	else
+	{
+		for(i = 0; i < n; i++){
+			current = current->next;
+		}
+		cout<<current->val<<endl;
+		return current->val;
+	}
+}//fim da função
+ 
+	// função search_by_value()	
+		int search_by_value(node_list *head, int val) {
+	// 1. Dados 
+		int pos = 0;
+		int retval = -1;
+		bool encontrouValor = false;
+		node_list * current = head;
+		
+	// 2. Algoritmo 
+	if (current == NULL){
+		cout<<"Lista vazia!"<<endl;
+		return -1;
+	}
+	else 
+	{
+		while(current != NULL)
+	}
+		if(current->val == val)
+			{
+				cout<<"Valor encontrado na posição: "<<pos<<"."<<endl;
+				encontrouValor = true;
+			}
+			current = current->next;
+			pos++;
+			}
+			if (encontrouValor)
+				return (pos-1);
+			else 
+			{
+				cout<<"Valor não encontrado na estrutura de dados."<<endl;
+				return -1;
+			}
+		}
+	}// fim da função
+
+	// função update_by_index()
+	int update_by_index(node_list *head , int n, int newVal){
+		
+	// 1. Dados  
+		int i = 0;
+		int retval = -1;
+		node_list * current = head;
+		
+	// 2. Algoritmo 
+	if (current == NULL){
+		cout<<"Lista vazia!"<<endl;
+		return -1;
+	}
+	else if (n == 0)	
+		current->val = newVal;
+		return n;
+	}
+	else if (n > size(head))
+	{
+		cout<<"Posições começam de 0."<<endl;
+			cout<<"Estrutura só tem "<<size(head)<<" elementos."<<endl;
+		return -1;
+	}
+	else
+	{
+		for(i = 0; i < n; i++){
+			current = current->next;
+		}
+		current->val = newVal;
+		return n;
+	}
+}//fim da função	 	 	 	 	 
 
 	 
 	
