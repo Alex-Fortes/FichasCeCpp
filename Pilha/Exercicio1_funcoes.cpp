@@ -158,8 +158,6 @@
 	   printf("\n");
 	}    // Fim da função.
 
-
-
 //****************************************************
 //* Função "push()"
 //* ->  Insere um elemento no topo da pilha. 
