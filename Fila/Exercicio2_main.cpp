@@ -24,7 +24,7 @@ int main()
     //    Declaração e inicialização das variáveis
 	
 	// Ponteiro para a base da fila
-    struct Elemento *base = NULL;
+    struct Elemento *primeiro = NULL;
 
     char escolha = '\0';
     bool queroSair = false;   // Declaração de uma variável booleana
@@ -36,7 +36,7 @@ int main()
     system("color A");
     printf("*****************************************\n");
     printf("*                                       *\n");
-    printf("*            Fila                       *\n");
+    printf("*           Queue Fila                  *\n");
     printf("*                                       *\n");
     printf("*      1. Listar fila.                  *\n");
     printf("*      2. Inserir fila.                 *\n");
@@ -45,7 +45,7 @@ int main()
     printf("*      5. Sair do programa.             *\n");
     printf("*                                       *\n");  
     printf("*****************************************\n");      
-    if (isEmpty(base))
+    if (isEmpty(primeiro))
     {
     printf("*****************************************\n");
     printf("*                                       *\n");
@@ -65,8 +65,14 @@ int main()
     // 5. Apresentação de saida
     switch (escolha) {
        case '1':   // Listar elementos da fila.
-        printf("Lista de Elementos. \n"); 
-		show; printf("\n"); 
+         if (!isEmpty(primeiro)) 
+		    {	
+            show(primeiro); printf("\n");
+		    }
+         else
+           {
+           printf("Fila está vazia.\n");
+           }  
         system("pause");  
         break;
        case '2':  // Inserir elemento da fila.
@@ -74,39 +80,39 @@ int main()
          int dado=0;
          printf("Qual o dado a inserir? ");
          scanf("%d", &dado);
-         insert(dado);
+         primeiro = insert(primeiro,dado);
          printf("Dado inserido com sucesso!\n");
          system("pause");
          break;
          }
-       case '3':  // Primeiro elemento da fila.
+       case '3':  // Último elemento da fila.
          {
-         if (!isEmpty(base)) 
+         if (!isEmpty(primeiro)) 
 		    {	
-            printf("Primeiro elemento da fila: %d.\n\n",
-		        peek(base));
+            printf("primeiro elemento da fila: %d.\n\n",
+		        peek(primeiro));
 		    }
 		 else 
             {
             printf("Não encontrou dados: a fila está vazia.\n");
-            printf("Empty stack!!\n");
+            printf("Empty queue!!\n");
             }
          system("pause");
          break;
          }          
        case '4':  // Remover elemento da fila.
          {
-         if (!isEmpty(base)) 
+         if (!isEmpty(primeiro)) 
 		    {	
             int dado=0;
-            printf("Dado a remover: %d.\n",peek(base));
-            remove(base&);
+            printf("Dado a remover: %d.\n",peek(primeiro));
+            remove(&primeiro);
             printf("Dado removido com sucesso!\n");
-         	}
+		    }
 		 else 
             {
-            printf("Não encontrou dados: fila está vazia.\n");
-            printf("Empty stack!!\n");
+            printf("Não encontrou dados: a fila está vazia.\n");
+            printf("Empty queue!!\n");
             }
          system("pause");
          break;
@@ -132,4 +138,3 @@ system("pause");
 return 0;
 
 } // Fim da função "main()".
-

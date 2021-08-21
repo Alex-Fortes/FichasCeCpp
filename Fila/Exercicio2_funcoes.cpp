@@ -28,10 +28,11 @@ typedef struct Elemento {
 //*********************************************
 //* Variáveis globais
 //*********************************************
-// Ponteiro para o inicio da fila
-struct Elemento *primeiro = NULL;
-// Ponteiro para o fim da fila
-struct Elemento *ultimo = NULL;
+	int isEmpty(Elemento * primeiro);
+	int peek(Elemento * primeiro);
+	void show(Elemento * primeiro); 
+	Elemento * insert(Elemento * primeiro, int dado);
+	int remove(Elemento ** primeiro); 
 
 //*********************************************
 //* Funções
@@ -60,9 +61,9 @@ struct Elemento *ultimo = NULL;
 //*      bool -> true se  a fila está vazia.
 //+              false se a fila não está vazia.
 //******************************************************
-int isEmpty(Elemento* base) {
+int isEmpty(Elemento* primeiro) {
 
-   if(base == NULL)
+   if(primeiro == NULL)
       return 1;     // true
    else
       return 0;     // false
@@ -76,27 +77,9 @@ int isEmpty(Elemento* base) {
 //* Saida(s): 
 //*      int -> o primeiro elemento
 //******************************************************
-int peek(Elemento * base) {
-	
-   Elemento * topo = base;
-   while (topo != NULL && topo -> proximo != NULL)
-        topo = topo -> proximo;	
-	
-   return topo->valor; 
-}    // Fim da função.
-
-//****************************************************
-//* Função "peek()"
-//* ->  Devolve o elemento na frente da fila. 
-//*****************************************************
-//* Entrada(s): 
-//*      não tem. 
-//* Saida(s): 
-//*      int -> o elemento na frente da fila.
-//******************************************************
-int peek() {
-   return primeiro->valor;
-}    // Fim da função.
+	int peek(Elemento * primeiro) {
+	   return primeiro->valor;
+	}    // Fim da função.
 
 //****************************************************
 //* Função "show()"
@@ -107,27 +90,27 @@ int peek() {
 //* Saida(s): 
 //*      não tem.
 //******************************************************
-void show() 
-{
-   Elemento * ptr = NULL;
-   
-   printf("Lista de elementos da fila: ");   
-   if (primeiro != NULL)
-      {
-      ptr = primeiro;	
-      while (ptr != NULL)
-        {
-		printf(" %d",ptr->valor);
-		ptr = ptr -> proximo;	
-        } // Fim do ciclo "while". 
-	  } // Fim do "if".
-   else 
-      {
-      printf("Fila vazia!\n");
-      } // Fim do "else".
-
-   printf("\n");
-}   // Fim da função.
+	void show(Elemento * primeiro) 
+	{
+	   Elemento * ptr = NULL;
+	   
+	   printf("Lista de elementos da fila: ");   
+	   if (primeiro != NULL)
+	      {
+	      ptr = primeiro;	
+	      while (ptr != NULL)
+	        {
+			printf(" %d",ptr->valor);
+			ptr = ptr -> proximo;	
+	        } // Fim do ciclo "while". 
+		  } // Fim do "if".
+	   else 
+	      {
+	      printf("Fila vazia!\n");
+	      } // Fim do "else".
+	
+	   printf("\n");
+	}   // Fim da função.
 
 
 //****************************************************
@@ -139,12 +122,16 @@ void show()
 //* Saida(s): 
 //*      não tem.
 //******************************************************
-void insert(int dado) 
+Elemento * insert(Elemento * primeiro, int dado) 
 {
     Elemento *  novoElemento 
 	   =(Elemento*) malloc(sizeof(Elemento));
        	
-  	if (novoElemento != NULL)  // Foi possivel alocar o elemento
+    Elemento * ultimo = primeiro;
+    while (ultimo != NULL && ultimo -> proximo != NULL)
+        ultimo = ultimo -> proximo;   	
+       	
+  	if (novoElemento != NULL)
   	   {
    	    novoElemento->valor = dado;
     	novoElemento->proximo = NULL;
@@ -163,12 +150,11 @@ void insert(int dado)
 	   {
 	   	printf("Impossivel alocar novo elemento!\n");
 	   }
+    return primeiro;
 } // Fim da função.
        	
        	
-
-
-
+		   
 //****************************************************
 //* Função "remove()"
 //* ->  Remove o primeiro elemento fila. 
@@ -178,27 +164,30 @@ void insert(int dado)
 //* Saida(s): 
 //*      int -> elemento removido.
 //******************************************************
-int remove() 
+int remove(Elemento ** primeiro) 
 {
 	Elemento * ptr = NULL;
 	int dado = 0;
 	
-	if (primeiro != NULL)      // Se a fila não está vazia
+	Elemento * ultimo = *primeiro;
+    while (ultimo != NULL && ultimo -> proximo != NULL)
+        ultimo = ultimo -> proximo;   
+	
+	if (*primeiro != NULL)
 	    {
-	    if(primeiro == ultimo) // Último elemento da fila 
+	    if(*primeiro == ultimo) // Último elemento da fila 
 	      {
-	      dado = primeiro->valor;
-	      ptr = primeiro;
-	      primeiro = NULL;
+	      dado = (*primeiro)->valor;
+	      ptr = *primeiro;
+	      *primeiro = NULL;
 		  ultimo = NULL; 	
 	      free(ptr);
 		  } 
 		else
 		  {
-		  dado = primeiro->valor;
-		  ptr = primeiro;
-		  primeiro = primeiro->proximo;
-		  ptr->proximo = NULL;
+		  dado = (*primeiro)->valor;
+		  ptr = *primeiro;
+		  *primeiro = (*primeiro)->proximo;
           free(ptr);	
 		  }		
 	   }
@@ -208,5 +197,4 @@ int remove()
 	   	dado = -1;
 	   }   
 	return dado;
-} // Fim da função.	   
-	
+} // Fim da função.	  	
