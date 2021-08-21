@@ -17,19 +17,17 @@
 #include <stdbool.h>
 #include <clocale>
 
-#define MAX 6
-
-
 //*********************************************
 //* Variáveis globais
 //*********************************************
-int fila[MAX];
-int front = 0;      // Posição do elemento 
-                    // da frente da fila
-int rear = -1;      // Posição do elemento 
-                    // na última posição da fila
-int itemCount = 0;
 
+	int peek(int fila[], int primeiro);
+	void show(int fila[],int primeiro, int ultimo);
+	bool isEmpty(int primeiro); 
+	bool isFull(int ultimo, int MAX);
+	int size(int ultimo, int primeiro);
+	int insert(int fila[], int ultimo,   int MAX,    int data);
+	int remove(int fila[], int primeiro, int ultimo);
 
 //*********************************************
 //* Funções
@@ -61,9 +59,9 @@ int itemCount = 0;
 //* Saida(s): 
 //*      int -> o elemento na frente da fila.
 //******************************************************
-int peek() {
-   return fila[front];
-}
+	int peek(int fila[], int primeiro) {
+	   return fila[primeiro];
+	}
 
 //****************************************************
 //* Função "show()"
@@ -74,13 +72,13 @@ int peek() {
 //* Saida(s): 
 //*      int -> o elemento no topo da fila.
 //******************************************************
-void show() {
-   
-   printf("Lista de elementos da fila: ");
-   for (int cValor = front; cValor < (front+itemCount); cValor++)
-       printf(" %d",fila[cValor]);
-   printf("\n");
-}
+	void show(int fila[],int primeiro, int ultimo) {
+	   
+	   printf("Lista de elementos da fila: ");
+	   for (int cValor = primeiro; cValor <= ultimo; cValor++)
+	       printf(" %d",fila[cValor]);
+	   printf("\n");
+	}
 
 //****************************************************
 //* Função "isEmpty()"
@@ -92,11 +90,9 @@ void show() {
 //*      bool -> true se  a fila está vazia.
 //+              false se a fila não está vazia.
 //******************************************************
-bool isEmpty() {
-   return itemCount == 0;
-}
-
-
+	bool isEmpty(int ultimo) {
+	   return ultimo == -1;
+	}
 
 //****************************************************
 //* Função "isFull()"
@@ -108,14 +104,11 @@ bool isEmpty() {
 //*      bool -> true se  a fila está cheia.
 //+              false se a fila não está cheia.
 //******************************************************
-	int isFull(int top, int MAX) {
-	
-	   if(top == MAX-1)
-	      return 1;        // true
-	   else
-	      return 0;        // false
-	}    // Fim da função.
 
+	bool isFull(int ultimo, int MAX) {
+	   return ultimo == (MAX-1);
+	}
+	
 //****************************************************
 //* Função "size()"
 //* ->  devolve o  número de elementos da fila. 
@@ -125,11 +118,9 @@ bool isEmpty() {
 //* Saida(s): 
 //*      int -> número de elementos da fila.
 //******************************************************
-int size() {
-   return itemCount;
-}  
-
-
+	int size(int ultimo, int primeiro) {
+	   return (ultimo-primeiro+1);
+	} 
 
 //****************************************************
 //* Função "insert()"
@@ -140,22 +131,20 @@ int size() {
 //* Saida(s): 
 //*      não tem.
 //******************************************************
-void insert(int data) {
-
-   // Se a fila não tiver cheia
-   if(!isFull()) {
+	int insert(int fila[], int ultimo, int MAX, int data) {
 	
-      fila[++rear] = data;
-      
-      itemCount++;
-   }
-   else
-   {
-      printf("Não pode inserir dados: fila está cheia.\n");
-   }
-}  // Fim da função "insert()".
-
-
+	   // Se a fila não tiver cheia
+	   if(!isFull(ultimo,MAX)) 
+	   {
+	   	  ultimo++;
+		  fila[ultimo] = data;
+	   }
+	   else
+	   {
+	      printf("Não pode inserir dados: fila está cheia.\n");
+	   }
+	  return ultimo; 
+	}  // Fim da função "insert()".
 
 
 //****************************************************
@@ -167,22 +156,25 @@ void insert(int data) {
 //* Saida(s): 
 //*      int -> primeiro elemento da fila.
 //******************************************************
-int remove() {
-	
-   front = 0;
-	
-   int data = fila[0];
-	
-   itemCount--;	
+	int remove(int fila[], int primeiro, int ultimo) 
+	   {
+		
+	   if (!isEmpty(ultimo))   // Fila não está vazia
+	      {
+		  int data = fila[primeiro];
+		  //itemCount--;	
+		  
+	      // Transporta todos os valores para a frente. 
+	      for (int cValor = primeiro; cValor < ultimo; cValor++)
+	          fila[cValor] = fila[cValor+1];
+	       
+	      fila[ultimo] = 0;      
+	      ultimo--;
+	   }
+	   else
+	   {
+	      printf("Não pode remover dados: fila está vazia.\n");
+	   }
+	return ultimo;
+	}
 
-   // Transporta todos os valores para a frente. 
-   for (int cValor = front; cValor < front+ itemCount; cValor++)
-       fila[cValor] = fila[cValor+1];
-       
-   fila[rear] = 0;      
-  
-   rear--;
-
-   
-   return data;  
-}

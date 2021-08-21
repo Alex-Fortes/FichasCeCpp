@@ -26,14 +26,20 @@ int main()
 	
 	setlocale(LC_ALL, "Portuguese");
 
+   
     // 1. Definição das constantes 
     //    Declaração e inicialização das variáveis
     const int NUMMAXVALORES = 8;       
-    int fila[NUMMAXVALORES];     
-    int topo = -1;            // Topo da fila  
-    const int LIVRE = 0, OCUPADO = 1;
+	int fila[NUMMAXVALORES];
+    int primeiro = 0;     // Posição do elemento 
+                           // da frente da fila
+    int ultimo = -1;       // Posição do elemento 
+                           // na última posição da fila
+    int itemCount = 0;
+
+    const int LIVRE = 0;
     char escolha = '\0';
-    bool queroSair = false;   
+    bool queroSair = false;   // Declaração de uma variável booleana
      
     for(int contaLugar=0; contaLugar < NUMMAXVALORES; contaLugar++) 
         fila[contaLugar] = LIVRE;
@@ -53,68 +59,90 @@ int main()
     printf("*      5. Sair do programa.             *\n");
     printf("*                                       *\n");  
     printf("*****************************************\n");      
-    
+     if (isFull(ultimo,NUMMAXVALORES))
+    {
+    printf("*****************************************\n");
+    printf("*                                       *\n");
+    printf("*           Fila CHEIA!!!               *\n");
+    printf("*                                       *\n");  
+    printf("*****************************************\n"); 
+	printf("\n");   	
+    }
+    if (isEmpty(ultimo))
+    {
+    printf("*****************************************\n");
+    printf("*                                       *\n");
+    printf("*           Fila VAZIA!!!               *\n");
+    printf("*                                       *\n");  
+    printf("*****************************************\n"); 
+	printf("\n"); 	
+    }    
     // 3. ENTRADA: Obter a escolha do utilizador
     fflush(stdin); 
     printf("\nQual a sua escolha (1-5)? "); 
 	scanf("%c", &escolha);
 	printf("\n");
     
-    // 4. Procesamento 
+     // 4. Procesamento 
     // 5. Apresentação de saida
     switch (escolha) {
        case '1':   // Listar elementos da fila.
-        printf("Lista de Elementos: \n"); 
-		show; printf("\n"); 
+         if (!isEmpty(ultimo)) 
+		    {	
+            show(fila,primeiro,ultimo); printf("\n");
+		    }
+         else
+           {
+           printf("Fila está vazia.\n");
+           }  
         system("pause");  
         break;
        case '2':  // Inserir elemento da fila.
-        {
-        if (!isFull(fila)) 
-		    {	
-            int dado=0;
+         {
+         if (!isFull(ultimo,NUMMAXVALORES)) 
+		    {
+		    int dado=0;
             printf("Qual o dado a inserir? ");
             scanf("%d", &dado);
-            topo = push(fila,dado,topo,NUMMAXVALORES);
+            ultimo = insert(fila,ultimo,NUMMAXVALORES,dado);
+            printf("Posição do último elemento: %d.\n",ultimo);
             printf("Dado inserido com sucesso!\n");
             }
-            else 
+         else
             {
             printf("Não pode inserir dados: fila está cheia.\n");
-            printf("Stack overflow!!\n");
-            }   
-        system("pause");
-        break;
-        }
-       case '3':  //  primeiro elemento.
+            }
+         system("pause");
+         break;
+         }
+       case '3':  // Último elemento da fila.
          {
-         if (!isEmpty(topo)) 
+         if (!isEmpty(ultimo)) 
 		    {	
             printf("Primeiro elemento da fila: %d.\n",
-		        peek(fila,topo));
+		        peek(fila,primeiro));
 		    }
-		 else 
-            {
-            printf("Não encontrou dados: fila está vazia.\n");
-            printf("Empty stack!!\n");
-            }
+         else
+           {
+           printf("Fila está vazia.\n");
+           }    
          system("pause");
          break;
          }          
        case '4':  // Remover elemento da fila.
          {
-         if (!isEmpty(topo)) 
-		    {	
-            int dado=0;
-            printf("Dado a remover: %d.\n",peek(fila,topo));
-            topo = pop(fila,topo);
-            printf("Dado removido com sucesso!\n");
-            }
-		 else 
-            {
-            printf("Não encontrou dados: fila está vazia.\n");
-            printf("Empty stack!!\n");
-            }
+         if (!isEmpty(ultimo)) 
+		   {
+		   int dado=0;	
+		   printf("Dado a remover: %d.\n",peek(fila,primeiro));
+           ultimo = remove(fila,primeiro,ultimo);
+           printf("Posição do último elemento: %d.\n",ultimo);
+           printf("Dado removido com sucesso!\n");
+           }
+         else
+           {
+           printf("Não pode remover dados: fila está vazia.\n");
+           }         
          system("pause");
          break;
          } 
@@ -137,5 +165,6 @@ int main()
 printf("\nObrigado por ter usado o nosso programa.\n");
 system("pause");
 return 0;
+
 } // Fim da função "main()".
 
