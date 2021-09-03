@@ -1,2 +1,1 @@
-# FichasCeCpp
-Fichas de exercícios desenvolvidas durante o curso - Programação em C/C++
+# Course exercises - C/C++
